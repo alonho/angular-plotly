@@ -1,0 +1,31 @@
+{
+    "name": "angular-plotly",
+    "version": "0.1.0",
+    "description": "An AngularJS directive for plotly.js",
+    "main": [
+        "src/angular-plotly.js"
+    ],
+    "license": "MIT",
+    "keywords": [
+        "angular",
+        "plotly",
+        "charts",
+        "visualization"
+    ],
+    "authors": [
+        "Alon Horev"
+    ],
+    "homepage": "https://github.com/alonho/angular-plotly",
+    "repository": {
+        "type": "git",
+        "url": "http://alonho.github.io/angular-plotly.git"
+    },
+    "dependencies": {
+        "angular": "^1.x"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ]
+}
