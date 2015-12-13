@@ -12,26 +12,21 @@
         },
         link: function(scope, element) {
           element = element[0].children[0];
-          var init = false;
-          var plot = function() {
-            if (init)
+          var initialized = false;
+          var init = function() {
+            if (initialized)
               return;
             else
-              init = true;
+              initialized = true;
             Plotly.newPlot(element, scope.data, scope.layout, scope.options);
           }
 
-          scope.$watch('layout', function(layout, old) {
-            plot();
-            if (layout == old)
-              return;
-            Plotly.relayout(element, layout);
-          }, true);
-
-          scope.$watch('data', function(data, old) {
-            plot();
-            if (data == old)
-              return;
+          scope.$watch(function() {
+            return [scope.layout, scope.data];
+          }, function() {
+            init();
+            element.layout = scope.layout;
+            element.data = scope.data;
             Plotly.redraw(element);
           }, true);
 
