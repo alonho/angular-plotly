@@ -62,9 +62,7 @@
                         onResize();
                     }, true);
 
-                    angular.element($window).bind('resize', function() {
-                        onResize();
-                    });
+                    angular.element($window).bind('resize', onResize);
                 }
             };
         }
