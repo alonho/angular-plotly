@@ -7,9 +7,9 @@
                 restrict: 'E',
                 template: '<div></div>',
                 scope: {
-                    data: '=',
-                    layout: '=',
-                    options: '='
+                    plotlyData: '=',
+                    plotlyLayout: '=',
+                    plotlyOptions: '='
                 },
                 link: function(scope, element) {
                     var graph = element[0].children[0];
@@ -17,7 +17,7 @@
 
                     function onUpdate() {
                         //No data yet, or clearing out old data
-                        if (!(scope.data)) {
+                        if (!(scope.plotlyData)) {
                             if (initialized) {
                                 Plotly.Plots.purge(graph);
                                 graph.innerHTML = '';
@@ -27,25 +27,25 @@
                         //If this is the first run with data, initialize
                         if (!initialized) {
                             initialized = true;
-                            Plotly.newPlot(graph, scope.data, scope.layout, scope.options);
+                            Plotly.newPlot(graph, scope.plotlyData, scope.plotlyLayout, scope.plotlyOptions);
                         }
-                        graph.layout = scope.layout;
-                        graph.data = scope.data;
+                        graph.layout = scope.plotlyLayout;
+                        graph.data = scope.plotlyData;
                         Plotly.redraw(graph);
                         Plotly.Plots.resize(graph);
                     }
 
                     function onResize() {
-                        if (!(initialized && scope.data)) return;
+                        if (!(initialized && scope.plotlyData)) return;
                         Plotly.Plots.resize(graph);
                     }
 
                     scope.$watchGroup([
                         function() {
-                            return scope.layout;
+                            return scope.plotlyLayout;
                         },
                         function() {
-                            return scope.data;
+                            return scope.plotlyData;
                         }
                     ], function(newValue, oldValue) {
                         if (angular.equals(newValue, oldValue)) return;
