@@ -21,7 +21,8 @@
         "url": "http://alonho.github.io/angular-plotly.git"
     },
     "dependencies": {
-        "angular": "^1.x"
+        "angular": "^1.x",
+        "plotly.js":"^1.10.2"
     },
     "ignore": [
         "**/.*",
