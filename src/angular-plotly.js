@@ -41,14 +41,14 @@
                     }
 
                     scope.$watchGroup([
-                        function() {
+                        function(scope) {
                             return scope.plotlyLayout;
                         },
-                        function() {
+                        function(scope) {
                             return scope.plotlyData;
                         }
                     ], function(newValue, oldValue) {
-                        if (angular.equals(newValue, oldValue)) return;
+                        if (angular.equals(newValue, oldValue) && initialized) return;
                         onUpdate();
                     }, true);
 

@@ -5,6 +5,9 @@ app.controller('controller', function($scope) {
     $scope.layout = {height: 600, width: 1000, title: 'foobar'};
     $scope.options = {showLink: false, displayLogo: false};
     $scope.movePoint = function() {
-        $scope.data[0].y[4]++;
+        // change reference to trigger watch
+        data = angular.copy($scope.data);
+        data[0].y[4]++;
+        $scope.data = data
     }
 });
