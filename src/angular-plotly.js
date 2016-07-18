@@ -9,11 +9,16 @@
                 scope: {
                     plotlyData: '=',
                     plotlyLayout: '=',
-                    plotlyOptions: '='
+                    plotlyOptions: '=',
+                    plotlyEvents: '='
                 },
                 link: function(scope, element) {
                     var graph = element[0].children[0];
                     var initialized = false;
+
+                    function subscribeToEvents(graph) {
+                      scope.plotlyEvents(graph);
+                    }
 
                     function onUpdate() {
                         //No data yet, or clearing out old data
@@ -28,6 +33,9 @@
                         if (!initialized) {
                             initialized = true;
                             Plotly.newPlot(graph, scope.plotlyData, scope.plotlyLayout, scope.plotlyOptions);
+                            if (scope.plotlyEvents){
+                              subscribeToEvents(graph);
+                            }
                         }
                         graph.layout = scope.plotlyLayout;
                         graph.data = scope.plotlyData;
