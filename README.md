@@ -16,6 +16,13 @@ Include angular, plotly and angular-plotly:
 <script src="bower_components/angular-plotly/src/angular-plotly.js"></script>
 ```
 
+Add plotly dependency:
+
+```js
+var app = angular.module('yourApp', ['plotly']);
+```
+
+
 Add a chart:
 
 ```html
