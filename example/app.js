@@ -10,4 +10,14 @@ app.controller('controller', function($scope) {
         data[0].y[4]++;
         $scope.data = data
     }
+    $scope.NumberOfSelectedPoints = 0;
+    $scope.plotlyEvents = function (graph){
+      // Create custom events that subscribe to graph
+      graph.on('plotly_selecting', function(event, eventdata){
+        if (event) {
+          $scope.NumberOfSelectedPoints = event.points.length;
+          $scope.$digest();
+        }
+      });
+    };
 });
