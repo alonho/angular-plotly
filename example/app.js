@@ -1,22 +1,21 @@
 var app = angular.module('plotlyTest', ['plotly']);
-app.controller('controller', function($scope) {
+app.controller('controller', function($scope, $timeout) {
     $scope.data = [{x: [1, 2, 3, 4, 5],
                     y: [1, 2, 4, 8, 16]}];
     $scope.layout = {height: 600, width: 1000, title: 'foobar'};
     $scope.options = {showLink: false, displayLogo: false};
     $scope.movePoint = function() {
-        // change reference to trigger watch
-        data = angular.copy($scope.data);
-        data[0].y[4]++;
-        $scope.data = data
+        // deep watch will pick up change.
+        $scope.data.y[4]++;
     }
     $scope.NumberOfSelectedPoints = 0;
     $scope.plotlyEvents = function (graph){
       // Create custom events that subscribe to graph
-      graph.on('plotly_selecting', function(event, eventdata){
+      graph.on('plotly_selected', function(event){
         if (event) {
-          $scope.NumberOfSelectedPoints = event.points.length;
-          $scope.$digest();
+            $timeout(function() {
+                $scope.NumberOfSelectedPoints = event.points.length;
+            });          
         }
       });
     };
