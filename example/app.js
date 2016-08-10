@@ -6,7 +6,7 @@ app.controller('controller', function($scope, $timeout) {
     $scope.options = {showLink: false, displayLogo: false};
     $scope.movePoint = function() {
         // deep watch will pick up change.
-        $scope.data.y[4]++;
+        $scope.data[0].y[4]++;
     }
     $scope.NumberOfSelectedPoints = 0;
     $scope.plotlyEvents = function (graph){
