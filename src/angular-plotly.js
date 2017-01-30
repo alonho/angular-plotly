@@ -10,7 +10,8 @@
                     plotlyData: '=',
                     plotlyLayout: '=',
                     plotlyOptions: '=',
-                    plotlyEvents: '='
+                    plotlyEvents: '=',
+                    plotlyManualDataUpdate: '='
                 },
                 link: function(scope, element) {
                     var graph = element[0].children[0];
@@ -57,7 +58,8 @@
                             onUpdate();
                         }, true);
 
-                   scope.$watch(
+                    if (!scope.plotlyManualDataUpdate) {
+                        scope.$watch(
                             function(scope) {
                                 return scope.plotlyData;
                             },
@@ -65,6 +67,14 @@
                                 if (angular.equals(newValue, oldValue) && initialized) return;
                                 onUpdate();
                             }, true);
+                    }
+
+                    /**
+                     * Listens to 'tracesUpdated' event broadcasted from controller to update plot.
+                     */
+                    scope.$on('tracesUpdated', function () {
+                        onUpdate();
+                    });
 
                     scope.$watch(function() {
                         return {
