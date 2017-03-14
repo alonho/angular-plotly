@@ -26,7 +26,7 @@ var app = angular.module('yourApp', ['plotly']);
 Add a chart:
 
 ```html
-<plotly plotly-data="data" plotly-layout="layout" plotly-options="options"></plotly>
+<plotly data="data" layout="layout" options="options"></plotly>
 ```
 
 The values expected for `data`, `layout` and `options` can be found in [plotly's documentation](https://plot.ly/javascript/).
