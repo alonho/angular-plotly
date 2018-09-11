@@ -1,8 +1,8 @@
-(function() {
+(function () {
     'use strict';
     angular.module('plotly', []).directive('plotly', [
         '$window',
-        function($window) {
+        function ($window) {
             return {
                 restrict: 'E',
                 template: '<div></div>',
@@ -13,12 +13,12 @@
                     plotlyEvents: '=',
                     plotlyManualDataUpdate: '='
                 },
-                link: function(scope, element) {
+                link: function (scope, element) {
                     var graph = element[0].children[0];
                     var initialized = false;
 
                     function subscribeToEvents(graph) {
-                      scope.plotlyEvents(graph);
+                        scope.plotlyEvents(graph);
                     }
 
                     function onUpdate() {
@@ -34,14 +34,13 @@
                         if (!initialized) {
                             initialized = true;
                             Plotly.newPlot(graph, scope.plotlyData, scope.plotlyLayout, scope.plotlyOptions);
-                            if (scope.plotlyEvents){
-                              subscribeToEvents(graph);
+                            if (scope.plotlyEvents) {
+                                subscribeToEvents(graph);
                             }
                         }
                         graph.layout = scope.plotlyLayout;
                         graph.data = scope.plotlyData;
-                        Plotly.redraw(graph);
-                        Plotly.Plots.resize(graph);
+                        Plotly.update(graph);
                     }
 
                     function onResize() {
@@ -50,20 +49,20 @@
                     }
 
                     scope.$watch(
-                        function(scope) {
+                        function (scope) {
                             return scope.plotlyLayout;
                         },
-                        function(newValue, oldValue) {
+                        function (newValue, oldValue) {
                             if (angular.equals(newValue, oldValue) && initialized) return;
                             onUpdate();
                         }, true);
 
                     if (!scope.plotlyManualDataUpdate) {
                         scope.$watch(
-                            function(scope) {
+                            function (scope) {
                                 return scope.plotlyData;
                             },
-                            function(newValue, oldValue) {
+                            function (newValue, oldValue) {
                                 if (angular.equals(newValue, oldValue) && initialized) return;
                                 onUpdate();
                             }, true);
@@ -76,12 +75,12 @@
                         onUpdate();
                     });
 
-                    scope.$watch(function() {
+                    scope.$watch(function () {
                         return {
                             'h': element[0].offsetHeight,
                             'w': element[0].offsetWidth
                         };
-                    }, function(newValue, oldValue) {
+                    }, function (newValue, oldValue) {
                         if (angular.equals(newValue, oldValue)) return;
                         onResize();
                     }, true);
