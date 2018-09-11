@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "angular": "^1.x",
-        "plotly.js":"^1.10.2"
+        "plotly.js": "^1.40.1"
     },
     "ignore": [
         "**/.*",
