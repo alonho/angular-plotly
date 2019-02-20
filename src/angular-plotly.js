@@ -46,7 +46,7 @@
 
                     function onResize() {
                         let graphDisplay = window.getComputedStyle(graph).display;
-                        if (!graphDisplay || (graphDisplay === "none") || !initialized || !scope.plotlyData)) return;
+                        if (!graphDisplay || (graphDisplay === "none") || !initialized || !scope.plotlyData) return;
                         Plotly.Plots.resize(graph);
                     }
 
