@@ -38,7 +38,9 @@
                               subscribeToEvents(graph);
                             }
                         }
-                        graph.layout = scope.plotlyLayout;
+                        // Copy the layout so that internal updates by plotly don't trigger the watcher, otherwise
+                        // we can end up in infinite watcher recursion -- this can happen when plotting time series data
+                        graph.layout = angular.copy(scope.plotlyLayout);
                         graph.data = scope.plotlyData;
                         Plotly.redraw(graph);
                         Plotly.Plots.resize(graph);
